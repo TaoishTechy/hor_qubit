@@ -1,0 +1,80 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hor-qubit"
+version = "0.3.0"
+description = "HOR-Qubit: Hollow Ontological Resonant Qubit framework — standard qubit + three certified classical metadata layers."
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.10"
+authors = [
+    {name = "TaoishTechy"},
+]
+keywords = ["quantum", "qubit", "simulation", "tensor-networks", "stabilizer", "certification", "forcing", "sheaf"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+]
+
+[project.optional-dependencies]
+crypto = [
+    "blake3>=0.3.0",
+    "pyspx>=0.1.0",
+]
+viz = [
+    "matplotlib>=3.7",
+]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.1",
+    "mypy>=1.0",
+]
+
+[project.scripts]
+hor = "hor.api.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/TaoishTechy/hor-qubit"
+Repository = "https://github.com/TaoishTechy/hor-qubit"
+Issues = "https://github.com/TaoishTechy/hor-qubit/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["hor*"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers"
+testpaths = ["tests"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "falsifiability: marks pre-registered falsifiability harnesses",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
